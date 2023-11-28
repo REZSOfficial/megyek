@@ -1,0 +1,12 @@
+#megyeId {
+    visibility: hidden !important;
+    height: 0px !important;
+}
+
+#newCityBtn {
+    margin: 70px !important;
+}
+
+.hidden {
+    visibility: hidden;
+}

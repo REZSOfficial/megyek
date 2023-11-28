@@ -11,9 +11,11 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('megye', function (Blueprint $table) {
+        Schema::create('cities', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('megye');
+            $table->string('varos');
+            $table->unsignedInteger('megye_id');
+            $table->foreign('megye_id')->references('id')->on('counties');
         });
     }
 
@@ -22,6 +24,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('megye');
+        Schema::dropIfExists('cities');
     }
 };

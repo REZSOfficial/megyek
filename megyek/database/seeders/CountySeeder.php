@@ -6,14 +6,14 @@ use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 
-class MegyeSeeder extends Seeder
+class CountySeeder extends Seeder
 {
     /**
      * Run the database seeds.
      */
     public function run(): void
     {
-        DB::table('megye')->insert([
+        DB::table('counties')->insert([
             ['megye' => 'Bács-Kiskun vármegye'],
             ['megye' => 'Baranya vármegye'],
             ['megye' => 'Békés vármegye'],

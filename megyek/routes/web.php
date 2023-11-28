@@ -1,6 +1,8 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\CityController;
+use App\Http\Controllers\CountyController;
 
 /*
 |--------------------------------------------------------------------------
@@ -13,4 +15,4 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', [MegyeController::class, 'index']);
+Route::get('/', [CountyController::class, 'index']);

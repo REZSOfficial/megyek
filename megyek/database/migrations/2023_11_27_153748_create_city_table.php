@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('cities', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('varos');
+            $table->string('varos')->unique();
             $table->unsignedInteger('megye_id');
             $table->foreign('megye_id')->references('id')->on('counties');
         });

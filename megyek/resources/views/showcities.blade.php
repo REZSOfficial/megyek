@@ -2,8 +2,8 @@
     @if(count($data['cities']) >= 1)
     @foreach ($data['cities'] as $city)
     <div class="container mt-2" id="{{$city->id}}">
-        <li onclick="enableInput({{$city}})" id="varos{{$city->id}}" value="{{$city->varos}}" class="list-group-item">{{$city->varos}}</li>
-        <button onclick="editCity({{$city}})" class="btn btn-success hidden" id="saveBtn{{$city->id}}">Mentés</button>
+        <li onclick="enableInput({{$city->id}}, '{{$city->varos}}')" id="varos{{$city->id}}" value="{{$city->varos}}" class="list-group-item">{{$city->varos}}</li>
+        <button onclick="editCity({{$city->id}})" class="btn btn-success hidden" id="saveBtn{{$city->id}}">Mentés</button>
         <button onclick="deleteCity({{$city->id}})" class="btn btn-danger hidden" id="deleteBtn{{$city->id}}">Törlés</button>
         <button class="btn btn-warning hidden" id="cancelBtn{{$city->id}}" onclick="cancel({{$city}})">Mégsem</button>
     </div>      

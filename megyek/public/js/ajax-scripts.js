@@ -46,8 +46,10 @@ function saveCity() {
         data: formData,
         success: function (response) {
             console.log(response.city);
+            let id = response.city.id;
+            let varos = response.city.varos;
             $('#noCities').hide();
-            $('#cityList').append('<div class="container mt-2" id="' + response.city.id + '"><li onclick="enableInput(' + response.city + ')" id="varos' + response.city.id + '" value="' + response.city.varos + '" class="list-group-item">' + response.city.varos + '</li><button onclick="editCity(' + response.city + ')" class="btn btn-success hidden" id="saveBtn' + response.city.id + '">Mentés</button><button onclick="deleteCity(' + response.city.id + ')" class="btn btn-danger hidden" id="deleteBtn' + response.city.id + '">Törlés</button><button class="btn btn-warning hidden" id="cancelBtn' + response.city.id + '" onclick="cancel(' + response.city + ')">Mégsem</button></div>');
+            $('#cityList').append('<div class="container mt-2" id="' + id + '"><li onclick="enableInput(' + id + ', \'' + varos + '\')" id="varos' + id + '" value="' + varos + '" class="list-group-item">' + varos + '</li><button onclick="editCity(' + id + ')" class="btn btn-success hidden" id="saveBtn' + id + '">Mentés</button><button onclick="deleteCity(' + id + ')" class="btn btn-danger hidden" id="deleteBtn' + id + '">Törlés</button><button class="btn btn-warning hidden" id="cancelBtn' + id + '" onclick="cancel(' + response.city + ')">Mégsem</button></div>');
             $('#newCityBtn').show();
             $('#addForm').hide();
         },
@@ -56,23 +58,23 @@ function saveCity() {
     })
 }
 
-function editCity(city) {
+function editCity(id) {
     event.preventDefault();
-    let newCity = $('#varosInput' + city.id).val();
+    let newCity = $('#varosInput' + id).val();
     let formData = {
-        city: $('#varosInput' + city.id).val(),
+        city: $('#varosInput' + id).val(),
     };
     $.ajax({
         type: 'POST',
-        url: '/api/edit/' + city.id,
+        url: '/api/edit/' + id,
         data: formData,
         success: function (response) {
-            $('#varosInput' + city.id).remove();
-            $('#varos' + city.id).html(newCity);
-            $('#varos' + city.id).show();
-            $('#saveBtn' + city.id).addClass('hidden');
-            $('#deleteBtn' + city.id).addClass('hidden');
-            $('#cancelBtn' + city.id).addClass('hidden');
+            $('#varosInput' + id).remove();
+            $('#varos' + id).html(newCity);
+            $('#varos' + id).show();
+            $('#saveBtn' + id).addClass('hidden');
+            $('#deleteBtn' + id).addClass('hidden');
+            $('#cancelBtn' + id).addClass('hidden');
         },
         error: function (error) {
             console.log(error);
@@ -97,14 +99,14 @@ function deleteCity(id) {
     })
 }
 
-function enableInput(city) {
-    let input = '<input onclick="enableInput(' + city.id + ')" name="varosInput' + city.id + '" id="varosInput' + city.id + '" value="' + city.varos + '" class="list-group-item">';
-    $('#' + city.id).append(input);
-    $('#varos' + city.id).hide();
+function enableInput(id, varos) {
+    let input = '<input name="varosInput' + id + '" id="varosInput' + id + '" value="' + varos + '" class="list-group-item">';
+    $('#' + id).append(input);
+    $('#varos' + id).hide();
 
-    $('#saveBtn' + city.id).removeClass('hidden');
-    $('#deleteBtn' + city.id).removeClass('hidden');
-    $('#cancelBtn' + city.id).removeClass('hidden');
+    $('#saveBtn' + id).removeClass('hidden');
+    $('#deleteBtn' + id).removeClass('hidden');
+    $('#cancelBtn' + id).removeClass('hidden');
 }
 
 function cancel(city) {

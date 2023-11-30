@@ -4,7 +4,7 @@
 
 <div id="content">
         <select class="form-select" name="countySelect" id="countySelect">
-            <option value="" disabled selected hidden>Válasszon</option>
+            <option value="" disabled selected hidden>Válasszon...</option>
             @foreach ($counties as $county)
                 <option value="{{$county->id}}">{{$county->megye}}</option>
             @endforeach

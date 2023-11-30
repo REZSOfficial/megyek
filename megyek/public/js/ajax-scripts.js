@@ -37,7 +37,7 @@ function addCity(id) {
 function saveCity() {
     event.preventDefault();
     let formData = {
-        city: $('#city').val(),
+        varos: $('#varos').val(),
         megye_id: $('#megyeId').val()
     };
     $.ajax({
@@ -45,15 +45,30 @@ function saveCity() {
         url: '/api/addCity',
         data: formData,
         success: function (response) {
-            console.log(response.city);
+            console.log(response);
             let id = response.city.id;
             let varos = response.city.varos;
             $('#noCities').hide();
-            $('#cityList').append('<div class="container mt-2" id="' + id + '"><li onclick="enableInput(' + id + ', \'' + varos + '\')" id="varos' + id + '" value="' + varos + '" class="list-group-item">' + varos + '</li><button onclick="editCity(' + id + ')" class="btn btn-success hidden" id="saveBtn' + id + '">Mentés</button><button onclick="deleteCity(' + id + ')" class="btn btn-danger hidden" id="deleteBtn' + id + '">Törlés</button><button class="btn btn-warning hidden" id="cancelBtn' + id + '" onclick="cancel(' + response.city + ')">Mégsem</button></div>');
+            $('#cityList').append('<div class="container mt-2" id="' + id + '"><li onclick="enableInput(' + id + ', \'' + varos + '\')" id="varos' + id + '" value="' + varos + '" class="list-group-item">' + varos + '</li><button onclick="editCity(' + id + ')" class="btn mb-2 mr-2 hidden" id="saveBtn' + id + '">Mentés</button><button onclick="deleteCity(' + id + ')" class="btn mb-2 mr-2 hidden" id="deleteBtn' + id + '">Törlés</button><button class="btn mb-2 mr-2 hidden" id="cancelBtn' + id + '" onclick="cancel(' + id + ')">Mégsem</button></div>');
             $('#newCityBtn').show();
             $('#addForm').hide();
+            $('#error').addClass('hidden');
         },
-        error: function (error) {
+        error: function (xhr) {
+            console.log(xhr);
+            if (xhr.status === 422) {
+                let errors = xhr.responseJSON.errors;
+                if (errors && errors.varos) {
+                    if (errors.varos[0] === 'The varos field must only contain letters.') {
+                        $('#error').html('A város neve csak betkből állhat!');
+                        $('#error').removeClass('hidden');
+                    }
+                    else if (errors.varos[0] === 'The varos has already been taken.') {
+                        $('#error').html('A várost már feltöltötték!');
+                        $('#error').removeClass('hidden');
+                    }
+                }
+            }
         }
     })
 }
@@ -75,9 +90,24 @@ function editCity(id) {
             $('#saveBtn' + id).addClass('hidden');
             $('#deleteBtn' + id).addClass('hidden');
             $('#cancelBtn' + id).addClass('hidden');
+            $('#editError').addClass('hidden');
         },
-        error: function (error) {
-            console.log(error);
+        error: function (xhr) {
+            console.log(xhr);
+            if (xhr.status === 422) {
+                let errors = xhr.responseJSON.errors;
+                console.log(errors);
+                if (errors && errors.city) {
+                    if (errors.city[0] === 'The city field must only contain letters.') {
+                        $('#editError').html('A város neve csak betkből állhat!');
+                        $('#editError').removeClass('hidden');
+                    }
+                    else if (errors.city[0] === 'The city has already been taken.') {
+                        $('#editError').html('A várost már feltöltötték!');
+                        $('#editError').removeClass('hidden');
+                    }
+                }
+            }
         }
     })
 }
@@ -109,11 +139,11 @@ function enableInput(id, varos) {
     $('#cancelBtn' + id).removeClass('hidden');
 }
 
-function cancel(city) {
-    $('#varosInput' + city.id).remove();
-    $('#varos' + city.id).show();
-    $('#saveBtn' + city.id).addClass('hidden');
-    $('#deleteBtn' + city.id).addClass('hidden');
-    $('#cancelBtn' + city.id).addClass('hidden');
+function cancel(id) {
+    $('#varosInput' + id).remove();
+    $('#varos' + id).show();
+    $('#saveBtn' + id).addClass('hidden');
+    $('#deleteBtn' + id).addClass('hidden');
+    $('#cancelBtn' + id).addClass('hidden');
 }
 

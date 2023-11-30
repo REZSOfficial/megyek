@@ -1,12 +1,41 @@
+* {
+    font-family: 'Quicksand';
+    color: rgb(196, 196, 196) !important;
+}
+
+body {
+    background-color: rgb(52, 53, 65) !important;
+}
+
 #megyeId {
     visibility: hidden !important;
     height: 0px !important;
 }
 
-#newCityBtn {
-    margin: 70px !important;
-}
 
 .hidden {
     visibility: hidden;
+}
+
+select,
+li,
+input {
+    background-color: rgb(52, 53, 65) !important;
+}
+
+li,
+input,
+.btn {
+    border: 2px solid rgb(196, 196, 196) !important;
+    border-radius: 10px !important;
+}
+
+.btn:hover {
+    border: 5px solid rgb(52, 53, 65) !important;
+    background-color: rgb(196, 196, 196) !important;
+    color: rgb(52, 53, 65) !important;
+}
+
+.btn {
+    border: 5px solid rgb(196, 196, 196) !important;
 }

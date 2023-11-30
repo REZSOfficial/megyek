@@ -1,7 +1,7 @@
 <nav class="navbar navbar-dark bg-dark">
-  <div class="container-fluid">
+  <div class="container-fluid d-flex justify-content-center">
     <a class="navbar-brand" href="/">
-      Megyék
+      MEGYÉK
     </a>
   </div>
 </nav>

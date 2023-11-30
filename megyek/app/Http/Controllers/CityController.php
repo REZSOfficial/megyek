@@ -22,22 +22,35 @@ class CityController extends Controller
     }
 
     public function save(Request $request){
-        $create_data = [
-            'varos' => $request->city,
-            'megye_id' => $request->megye_id,
-        ];
+
+        $create_data = $request->validate([
+            'varos' => 'required|alpha|unique:cities',
+            'megye_id' => 'required'
+        ]);
+
         $newCity = new City();
         $newCity = City::create($create_data);
         return response()->json(['city' => $newCity]);
     }
 
     public function update(Request $request, City $city){
+        $request->validate([
+            'city' => 'required|alpha|unique:cities,varos,' . $city->id,
+        ]);
+    
+        $city->varos = $request->city;
+    
+        $city->save();
+    
+        return response()->json(['message' => 'Siker']);
+        /*
         $create_data = [
             'varos' => $request->city,
             'megye_id' => $city->megye_id,
         ];
         $city->update($create_data);
         return response()->json(['message' => 'Siker']);
+        */
     }
 
     public function delete(Request $request, City $city){

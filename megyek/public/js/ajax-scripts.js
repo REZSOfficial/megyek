@@ -11,7 +11,6 @@ jQuery(document).ready(function ($) {
                     $("#cities").html(data);
                 },
                 error: function (error) {
-                    console.log(error);
                 }
             })
         }
@@ -29,7 +28,6 @@ function addCity(id) {
             $('#addForm').html(data);
         },
         error: function (error) {
-            console.log(error);
         }
     })
 }
@@ -45,7 +43,6 @@ function saveCity() {
         url: '/api/addCity',
         data: formData,
         success: function (response) {
-            console.log(response);
             let id = response.city.id;
             let varos = response.city.varos;
             $('#noCities').hide();
@@ -55,7 +52,6 @@ function saveCity() {
             $('#error').addClass('hidden');
         },
         error: function (xhr) {
-            console.log(xhr);
             if (xhr.status === 422) {
                 let errors = xhr.responseJSON.errors;
                 if (errors && errors.varos) {
@@ -93,10 +89,8 @@ function editCity(id) {
             $('#editError').addClass('hidden');
         },
         error: function (xhr) {
-            console.log(xhr);
             if (xhr.status === 422) {
                 let errors = xhr.responseJSON.errors;
-                console.log(errors);
                 if (errors && errors.city) {
                     if (errors.city[0] === 'The city field must only contain letters.') {
                         $('#editError').html('A város neve csak betkből állhat!');

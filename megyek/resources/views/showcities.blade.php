@@ -1,5 +1,4 @@
 <ul class="list-group" id="cityList">
-    <p id="editError" class="text-danger mt-1 hidden"></p>
     @if(count($data['cities']) >= 1)
     @foreach ($data['cities'] as $city)
     <div class="container mt-2" id="{{$city->id}}">
@@ -17,6 +16,7 @@
     @endif
     <div class="container mt-4">
         <button id="newCityBtn" class="btn container" onclick="addCity({{$data['county']->id}})">Új Város</button>
+        <p id="editError" class="text-danger mt-1 hidden"></p>
     </div>
 
 
